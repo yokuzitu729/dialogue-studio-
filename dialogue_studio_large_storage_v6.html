@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#22253b">
+<title>Dialogue Studio - 英語学習</title>
+<style>
+:root{--bg:#f4f5fb;--panel:#fff;--ink:#252840;--muted:#70758b;--accent:#6269c9;--accent2:#e8e9ff;--line:#e3e5f0;--good:#27815e;--bad:#b44757;--shadow:0 8px 24px #2528400c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;line-height:1.55}button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #9297ef;outline-offset:2px}header{position:sticky;top:0;z-index:5;background:#22253b;color:#fff;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 3px 12px #0002}header h1{font-size:17px;margin:0}header small{opacity:.75;font-size:11px}.wrap{max-width:850px;margin:auto;padding:16px 14px 100px}.screen{display:none}.screen.active{display:block}.hero{background:linear-gradient(135deg,#6269c9,#8c72c8);color:#fff;padding:22px;border-radius:22px;margin-bottom:15px;box-shadow:var(--shadow)}.hero h2{margin:0 0 5px;font-size:24px}.hero p{margin:0;opacity:.9}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.panel,.tile,.lesson-card,.stat{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:var(--shadow);min-width:0}.tile{display:flex;flex-direction:column;gap:6px;text-align:left;color:var(--ink);border:1px solid var(--line)}.tile .big{font-size:25px}.tile strong{font-size:15px}.tile span:last-child{color:var(--muted);font-size:12px}.section-title{font-size:18px;margin:22px 0 10px}.muted{color:var(--muted);font-size:13px}.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.between{display:flex;align-items:center;justify-content:space-between;gap:10px}.stack{display:flex;flex-direction:column;gap:12px}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field label{font-weight:650;font-size:13px}.field input,.field textarea,.field select,input[type=text],input[type=number],textarea,select{width:100%;border:1px solid #d6d9e8;border-radius:11px;background:#fff;padding:10px 11px;color:var(--ink)}textarea{min-height:86px;resize:vertical}.btn{border:0;border-radius:11px;background:var(--accent);color:white;padding:10px 14px;font-weight:700}.btn.secondary{background:var(--accent2);color:#464ba0}.btn.ghost{background:#f0f1f7;color:var(--ink)}.btn.danger{background:#fff0f1;color:var(--bad)}.btn.small{font-size:12px;padding:7px 10px}.btn:disabled{opacity:.45;cursor:not-allowed}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:#fff;color:var(--ink);font-size:13px}.pill.active{background:var(--accent);border-color:var(--accent);color:#fff}.bottom-nav{position:fixed;z-index:10;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -5px 20px #2023440b}.nav-btn{background:transparent;border:0;border-radius:12px;color:var(--muted);padding:5px 2px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;font-size:10px;min-width:0}.nav-btn.active{color:var(--accent);background:#f0f0ff;font-weight:750}.nav-icon{width:27px;height:27px;object-fit:contain;border-radius:6px;font-size:22px;display:flex;align-items:center;justify-content:center}.nav-icon img{width:100%;height:100%;object-fit:contain}.lesson-card{margin-bottom:10px}.lesson-card h3{margin:0 0 4px;font-size:16px;overflow-wrap:anywhere}.lesson-card p{margin:4px 0}.tag{display:inline-block;background:#f0f1fa;color:#5b5e83;border-radius:7px;padding:3px 7px;font-size:11px;margin:2px}.preview{max-width:100%;max-height:260px;object-fit:contain;border-radius:12px;background:#f1f2f7}.avatar{width:105px;height:130px;object-fit:cover;border-radius:15px;background:#eff0f6;border:1px solid var(--line);flex-shrink:0}.avatar.large{width:120px;height:150px}.avatar.small{width:72px;height:88px}.speech{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;position:relative;flex:1;min-width:0;box-shadow:var(--shadow)}.speech:before{content:"";position:absolute;left:-7px;top:25px;width:12px;height:12px;background:#fff;border-left:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}.coach{display:flex;gap:13px;align-items:flex-start;margin:12px 0}.coach-name{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:4px}.question-box{background:#fff;border:1px solid var(--line);padding:16px;border-radius:18px;margin:12px 0}.question-title{font-weight:750;font-size:18px;white-space:pre-wrap;overflow-wrap:anywhere}.choice{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px;margin:8px 0;color:var(--ink)}.choice.selected{border-color:var(--accent);background:#f0f0ff}.choice.correct{border-color:var(--good);background:#e9f8f0}.choice.wrong{border-color:var(--bad);background:#fff0f1}.feedback{border-radius:13px;padding:12px;margin-top:12px}.feedback.good{background:#e9f8f0;color:#205e47}.feedback.bad{background:#fff0f1;color:#913543}.progress{height:9px;background:#e7e8f2;border-radius:999px;overflow:hidden}.progress div{height:100%;background:var(--accent);width:0;transition:width .2s}.empty{text-align:center;padding:24px 12px;color:var(--muted)}.hidden{display:none!important}.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}.checkline{display:flex;gap:8px;align-items:center;font-size:13px}.checkline input{width:auto}.mini-stat{background:#f4f5fb;border-radius:12px;padding:10px}.mini-stat strong{display:block;font-size:21px}.image-pick{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.image-pick input{max-width:100%}.hr{border:0;border-top:1px solid var(--line);margin:18px 0}.notice{font-size:12px;color:var(--muted);background:#f7f7fc;padding:10px;border-radius:10px}.draw-canvas{width:100%;height:220px;border:1px dashed #aeb2ce;border-radius:12px;touch-action:none;background:#fff}.result-image{max-width:100%;max-height:170px;object-fit:contain;border-radius:12px;margin-top:8px}.daily-box{display:flex;align-items:center;gap:12px}.daily-box .progress{flex:1}.file-label{display:inline-flex;align-items:center;gap:6px;background:#eef0ff;color:#464ba0;padding:9px 12px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer}.file-label input{display:none}
+@media(min-width:650px){.wrap{padding-top:22px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding:28px}.hero h2{font-size:29px}}
+@media(max-width:420px){.split{grid-template-columns:1fr}.panel{padding:12px}.avatar.large{width:88px;height:112px}.coach{gap:10px}.nav-btn{font-size:9px}}
+
+/* Larger illustrations on phones and desktop, without cropping */
+.preview{max-width:100%!important;max-height:380px!important;width:auto;height:auto;object-fit:contain}
+.question-image{display:block;width:100%;max-height:440px;object-fit:contain;border-radius:14px;margin:12px auto}
+.coach .avatar{width:clamp(92px,28vw,190px)!important;height:clamp(92px,28vw,190px)!important;object-fit:contain}
+.result-image{display:block;max-width:100%;width:auto;max-height:420px;object-fit:contain;margin:10px auto}
+.story-card-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.story-card-row strong{flex:1;min-width:130px}
+@media(max-width:600px){.coach{align-items:flex-start}.coach .avatar{flex-shrink:0}}
+</style>
+</head>
+<body>
+<header><div><h1>Dialogue Studio</h1><small>好きなセリフで英語を学ぼう</small></div><button class="btn secondary small" onclick="go('settings')">⚙ 設定</button></header>
+<main class="wrap">
+<section id="home" class="screen active">
+  <div class="hero"><h2 id="homeGreeting">今日の英語学習</h2><p>自分だけの教材とキャラクターで、少しずつ。</p></div>
+  <div class="panel stack">
+    <div class="between"><strong>今日の目標</strong><button class="btn ghost small" onclick="go('records')">記録を見る</button></div>
+    <div class="daily-box"><div style="min-width:80px"><strong id="todayProgressText">0 / 5 問</strong><div class="muted" id="todayProgressSub">まずは1問から</div></div><div class="progress"><div id="todayProgressBar"></div></div></div>
+    <button class="btn" onclick="go('study')">学習を始める</button><div id="dueTodayHint" class="muted"></div>
+  </div>
+  <h2 class="section-title">メニュー</h2>
+  <div class="grid">
+    <button class="tile" onclick="go('lessons')"><span class="big">📚</span><strong>教材一覧</strong><span>登録・編集・カテゴリー分け</span></button>
+    <button class="tile" onclick="go('story')"><span class="big">📖</span><strong>ストーリー学習</strong><span>物語を順番に読んで学ぶ</span></button>
+    <button class="tile" onclick="go('study')"><span class="big">✏️</span><strong>英語を学ぶ</strong><span>複数の問題形式で練習</span></button>
+    <button class="tile" onclick="go('records')"><span class="big">📈</span><strong>学習記録・復習</strong><span>目標、苦手、間違いを確認</span></button>
+    <button class="tile" onclick="go('characters')"><span class="big">🎭</span><strong>キャラクター</strong><span>表情とインストラクター</span></button>
+    <button class="tile" onclick="go('design')"><span class="big">🎨</span><strong>デザイン工房</strong><span>背景・画像・タブアイコン</span></button>
+    <button class="tile" onclick="go('settings')"><span class="big">💾</span><strong>データ管理</strong><span>バックアップ・復元</span></button>
+  </div>
+  <h2 class="section-title">最近の教材</h2><div id="recentLessons"></div>
+</section>
+
+<section id="lessons" class="screen">
+  <div class="between"><h2>教材一覧</h2><button class="btn" onclick="newLesson()">＋ 教材を追加</button></div>
+  <div class="field"><label for="lessonSearch">教材を検索</label><input id="lessonSearch" placeholder="英語・日本語・カテゴリーで検索" oninput="renderLessons()"></div>
+  <div class="tabs" id="categoryFilters"></div><div id="lessonList"></div>
+</section>
+
+<section id="editor" class="screen">
+  <h2 id="editorTitle">教材を登録</h2>
+  <form id="lessonForm" class="panel stack">
+    <div class="field"><label for="lessonEnglish">英語のセリフ・英文 *</label><textarea id="lessonEnglish" required placeholder="例: I will never give up."></textarea></div>
+    <div class="field"><label for="lessonJapanese">日本語訳・正解 *</label><textarea id="lessonJapanese" required placeholder="例: 私は決して諦めない。"></textarea></div>
+    <div class="field"><label for="lessonCategory">カテゴリー</label><select id="lessonCategory"></select></div>
+    <div class="field"><label for="lessonNewCategory">新しいカテゴリー（必要な場合）</label><input id="lessonNewCategory" placeholder="入力すると新規カテゴリーとして登録"></div>
+    <div class="field"><label for="lessonExplanation">解説文（文法・単語・背景など）</label><textarea id="lessonExplanation" placeholder="インストラクターが説明する文章"></textarea></div>
+    <div class="field"><label for="lessonImage">教材に表示する画像</label><input id="lessonImage" type="file" accept="image/*"><img id="lessonImagePreview" class="preview hidden" alt="教材画像プレビュー"><button type="button" id="clearLessonImage" class="btn ghost small hidden" onclick="clearLessonImage()">画像を外す</button></div>
+    <div class="field"><label for="lessonHint">ヒント（任意）</label><input id="lessonHint" placeholder="例: never の位置に注目"></div>
+    <div class="field"><label for="lessonTags">メモ・タグ（任意、カンマ区切り）</label><input id="lessonTags" placeholder="例: 決意, future, 好きな場面"></div>
+    <div class="notice">問題の正解は「日本語訳・正解」に登録した内容を使います。入力問題では、正解の英語も登録英文から判定します。</div>
+    <div id="lessonSaveStatus" role="status" aria-live="polite" style="font-weight:bold"></div><div class="row"><button class="btn" type="button" onclick="saveLessonNow()">保存する</button><button class="btn ghost" type="button" onclick="go('lessons')">キャンセル</button></div>
+  </form>
+</section>
+
+<section id="story" class="screen">
+  <h2>ストーリー学習</h2>
+  <div class="panel stack">
+    <p class="muted">カテゴリーをもとにストーリーを作り、教材カードを選んで並べ替えられます。読書と、順番どおりの英和訳問題に対応します。</p>
+    <div class="field"><label for="storyCategory">ストーリーに使うカテゴリー</label><select id="storyCategory" onchange="renderStory()"></select></div>
+    <div class="field"><label for="storyTitle">ストーリー名</label><input id="storyTitle" placeholder="例：旅の始まり"></div>
+    <div class="field"><label for="storyDescription">あらすじ（任意）</label><textarea id="storyDescription" rows="2" placeholder="どんな物語？"></textarea></div>
+    <button class="btn secondary" onclick="saveStory()">ストーリーを作成・保存</button>
+    <div id="storyList"></div><div id="storyEditor" class="stack"></div>
+  </div>
+  <div id="storyReader" style="margin-top:14px"></div>
+</section>
+<section id="study" class="screen">
+  <h2>英語を学ぶ</h2>
+  <div class="panel stack">
+    <div class="split">
+      <div class="field"><label for="studyCategory">学習カテゴリー</label><select id="studyCategory" onchange="refreshStudySetup()"></select></div>
+      <div class="field"><label for="studyMode">問題形式</label><select id="studyMode" onchange="refreshStudySetup()"><option value="mixed">おまかせ（全形式）</option><option value="choice">選択問題</option><option value="english">英語を入力</option><option value="japanese">日本語訳を入力</option><option value="fill">穴埋め問題</option><option value="order">単語並べ替え</option><option value="translate">日本語から英語</option><option value="review">苦手・間違い復習</option><option value="scheduled">今日の復習予定</option></select></div>
+    </div>
+    <div class="field"><label for="studyCount">1回の問題数</label><select id="studyCount"><option value="5">5問</option><option value="10">10問</option><option value="15">15問</option></select></div>
+    <button class="btn" onclick="startStudy()">学習スタート</button>
+    <p class="muted" id="studySetupInfo">教材を登録すると学習を始められます。</p>
+  </div>
+  <div id="studyArea"></div>
+</section>
+
+<section id="records" class="screen">
+  <h2>学習記録・復習</h2>
+  <div class="grid" id="recordStats"></div>
+  <div class="panel stack" style="margin-top:12px">
+    <h3 style="margin:0">一日の目標</h3>
+    <div class="field"><label for="dailyGoal">1日に解きたい問題数</label><input id="dailyGoal" type="number" min="1" max="500" value="5"></div>
+    <button class="btn secondary" onclick="saveGoal()">目標を保存</button>
+    <div id="goalRecord"></div>
+  </div>
+  <h3 class="section-title">復習スケジュール</h3>
+  <p class="muted">正解した教材は1・3・7・14・30日後に復習。不正解の場合は翌日に再挑戦します。復習日が来た教材は「今日の復習予定」に表示されます。</p>
+  <div class="row"><button class="btn" onclick="startScheduledReview()">今日の復習を始める</button></div>
+  <div id="reviewScheduleList" style="margin-top:12px"></div>
+  <h3 class="section-title">苦手な教材・間違えた問題</h3>
+  <p class="muted">間違えた問題は自動で復習リストに追加されます。正解が続くと苦手度が下がります。</p>
+  <div class="row"><button class="btn" onclick="startReview()">苦手問題を復習する</button><button class="btn ghost" onclick="clearReviewHistory()">復習履歴をリセット</button></div>
+  <div id="weakList" style="margin-top:12px"></div>
+  <h3 class="section-title">最近の学習</h3><div id="historyList"></div>
+</section>
+
+<section id="characters" class="screen">
+  <h2>キャラクター設定</h2>
+  <div class="panel stack">
+    <h3 style="margin:0">学習キャラクター</h3>
+    <p class="muted">複数のキャラクターを保存し、いつでも切り替えられます。表情画像もキャラクターごとに保存されます。</p>
+    <div class="field"><label for="studentProfileSelect">保存済みキャラクター</label><select id="studentProfileSelect" onchange="selectStudentProfile(this.value)"></select></div>
+    <div class="row"><button class="btn secondary small" onclick="saveStudentProfileAsNew()">＋ 別のキャラクターとして保存</button><button class="btn danger small" onclick="deleteStudentProfile()">選択中を削除</button></div>
+    <div class="field"><label for="studentCharName">キャラクター名</label><input id="studentCharName" placeholder="例: 学習パートナー"></div>
+    <div class="split">
+      <div class="field"><label for="exprNormal">通常の表情</label><input id="exprNormal" type="file" accept="image/*"><img id="previewNormal" class="preview hidden" alt="通常の表情"></div>
+      <div class="field"><label for="exprHappy">正解・喜び</label><input id="exprHappy" type="file" accept="image/*"><img id="previewHappy" class="preview hidden" alt="喜びの表情"></div>
+      <div class="field"><label for="exprConfused">不正解・困惑</label><input id="exprConfused" type="file" accept="image/*"><img id="previewConfused" class="preview hidden" alt="困惑の表情"></div>
+      <div class="field"><label for="exprSurprised">驚き</label><input id="exprSurprised" type="file" accept="image/*"><img id="previewSurprised" class="preview hidden" alt="驚きの表情"></div>
+    </div>
+    <div class="field"><label for="studentCorrectLine">正解時の台詞</label><textarea id="studentCorrectLine" placeholder="やった！"></textarea></div>
+    <div class="field"><label for="studentWrongLine">不正解時の台詞</label><textarea id="studentWrongLine" placeholder="もう一回やってみよう"></textarea></div>
+    <button class="btn" onclick="saveStudentCharacter()">選択中のキャラクターを上書き保存</button>
+  </div>
+  <div class="panel stack" style="margin-top:14px">
+    <h3 style="margin:0">インストラクター</h3>
+    <p class="muted">複数のインストラクターを保存して切り替えられます。名前・紹介文・画像はそれぞれ個別に保存されます。</p>
+    <div class="field"><label for="coachProfileSelect">保存済みインストラクター</label><select id="coachProfileSelect" onchange="selectCoachProfile(this.value)"></select></div>
+    <div class="row"><button class="btn secondary small" onclick="saveCoachProfileAsNew()">＋ 別のインストラクターとして保存</button><button class="btn danger small" onclick="deleteCoachProfile()">選択中を削除</button></div>
+    <div class="field"><label for="coachName">インストラクター名</label><input id="coachName" placeholder="例: 英語の先生"></div>
+    <div class="field"><label for="coachIntro">最初のひとこと</label><textarea id="coachIntro" placeholder="例: 一緒に少しずつ学んでいこう！"></textarea></div>
+    <div class="split">
+      <div class="field"><label for="coachNormal">通常の画像</label><input id="coachNormal" type="file" accept="image/*"><img id="previewCoachNormal" class="preview hidden" alt="インストラクター"></div>
+      <div class="field"><label for="coachTalk">解説中の画像</label><input id="coachTalk" type="file" accept="image/*"><img id="previewCoachTalk" class="preview hidden" alt="解説中"></div>
+      <div class="field"><label for="coachHappy">正解時の画像</label><input id="coachHappy" type="file" accept="image/*"><img id="previewCoachHappy" class="preview hidden" alt="正解時"></div>
+      <div class="field"><label for="coachWrong">不正解時の画像</label><input id="coachWrong" type="file" accept="image/*"><img id="previewCoachWrong" class="preview hidden" alt="不正解時"></div>
+    </div>
+    <div class="field"><label for="coachCorrectLine">正解時の台詞</label><textarea id="coachCorrectLine" placeholder="よくできました！"></textarea></div>
+    <div class="field"><label for="coachWrongLine">不正解時の台詞</label><textarea id="coachWrongLine" placeholder="解説を確認してみましょう"></textarea></div>
+    <button class="btn" onclick="saveCoach()">選択中のインストラクターを上書き保存</button>
+    <div id="coachDemo"></div>
+  </div>
+</section>
+
+<section id="design" class="screen">
+  <h2>デザイン工房</h2>
+  <div class="panel stack">
+    <h3 style="margin:0">背景・リアクション画像</h3>
+    <p class="muted">スマホ内の画像を選んで設定できます。画像は端末内に保存されます。</p>
+    <div class="field"><label for="bgUpload">アプリ背景画像</label><input id="bgUpload" type="file" accept="image/*"><img id="previewBg" class="preview hidden" alt="背景画像"></div>
+    <div class="field"><label for="correctUpload">正解時のリアクション画像</label><input id="correctUpload" type="file" accept="image/*"><img id="previewCorrect" class="preview hidden" alt="正解時"></div>
+    <div class="field"><label for="wrongUpload">不正解時のリアクション画像</label><input id="wrongUpload" type="file" accept="image/*"><img id="previewWrong" class="preview hidden" alt="不正解時"></div>
+    <button class="btn secondary" onclick="applyDesign()">デザインを適用</button>
+    <hr class="hr">
+    <h3 style="margin:0">タブのアイコンを編集</h3>
+    <p class="muted">画像を登録したタブは、下のナビゲーションに画像が表示されます。</p>
+    <div class="split" id="tabIconFields"></div>
+    <button class="btn" onclick="saveTabIcons()">タブアイコンを保存</button>
+    <hr class="hr">
+    <h3 style="margin:0">お絵描き</h3>
+    <p class="muted">指で描いた絵を画像として保存し、背景やアイコンに使えます。</p>
+    <canvas id="drawCanvas" class="draw-canvas" width="720" height="440"></canvas>
+    <div class="split">
+      <div class="field"><label for="penColor">ペンの色</label><input id="penColor" type="color" value="#6269c9"></div>
+      <div class="field"><label for="penSize">ペンの太さ</label><input id="penSize" type="range" min="2" max="30" value="7"></div>
+    </div>
+    <div class="row"><button class="btn secondary" onclick="clearCanvas()">消す</button><button class="btn" onclick="saveCanvasImage()">絵を保存</button></div>
+  </div>
+  <button class="btn danger" style="margin-top:12px" onclick="resetDesign()">デザイン画像を初期状態に戻す</button>
+</section>
+
+<section id="settings" class="screen">
+  <h2>設定・データ管理</h2>
+  <div class="panel stack">
+    <h3 style="margin:0">バックアップ・大容量保存</h3>
+    <div id="storageStatus" class="notice" role="status">保存方式を確認しています…</div>
+    <button class="btn secondary small" onclick="showStorageUsage()">保存容量を確認する</button>
+    <p class="muted">教材、カテゴリー、キャラクター、画像、学習記録、目標、デザインをまとめて保存します。大切な変更の前にバックアップを作ってね。</p>
+    <button class="btn" onclick="exportBackup()">バックアップを書き出す</button>
+    <div class="field"><label for="backupFile">バックアップを読み込む</label><input id="backupFile" type="file" accept=".json,application/json"></div>
+    <button class="btn secondary" onclick="importBackup()">バックアップを復元する</button>
+    <div class="notice">復元すると、現在のデータはバックアップの内容に置き換わります。先に書き出しておくと安心です。</div>
+  </div>
+  <div class="panel stack" style="margin-top:14px">
+    <h3 style="margin:0">データについて</h3>
+    <p class="muted">データはこの端末のブラウザ内のIndexedDBに保存されます（利用できない環境では保存できません）。ブラウザのデータ削除や別端末への移動で消えることがあるため、バックアップを保管してください。画像が多い場合は、保存容量を節約するため自動で縮小されます。</p>
+    <button class="btn danger" onclick="resetAllData()">すべてのデータを削除</button>
+  </div>
+</section>
+</main>
+
+<nav class="bottom-nav" id="bottomNav">
+  <button class="nav-btn active" data-screen="home" onclick="go('home')"><span class="nav-icon" data-icon="home">⌂</span><span>ホーム</span></button>
+  <button class="nav-btn" data-screen="lessons" onclick="go('lessons')"><span class="nav-icon" data-icon="lessons">▤</span><span>教材</span></button>
+  <button class="nav-btn" data-screen="study" onclick="go('study')"><span class="nav-icon" data-icon="study">✎</span><span>学習</span></button>
+  <button class="nav-btn" data-screen="records" onclick="go('records')"><span class="nav-icon" data-icon="records">▥</span><span>記録</span></button>
+  <button class="nav-btn" data-screen="design" onclick="go('design')"><span class="nav-icon" data-icon="design">✿</span><span>設定</span></button>
+</nav>
+
+<script>
+window.addEventListener('error',function(e){
+ const box=document.getElementById('lessonSaveStatus');
+ if(box)box.textContent='JavaScriptエラー：'+e.message+'（行 '+e.lineno+'）';
+});
+"use strict";
+const KEY='dialogueStudioLessons', DESIGN_KEY='dialogueStudioDesign', META_KEY='dialogueStudioMeta';
+const DEFAULT_CATS=['未分類','日常会話','文法','単語','好きなセリフ'];
+const NAVS=[['home','ホーム','⌂'],['lessons','教材','▤'],['study','学習','✎'],['records','記録','▥'],['design','設定','✿']];
+let lessons=[], categories=[...DEFAULT_CATS], currentEditId=null, editImage=null, selectedCategory='すべて';
+let meta={goal:5,history:[],weak:{},student:{name:'学習パートナー',expressions:{}},coach:{name:'インストラクター',intro:'一緒に少しずつ学んでいこう！',images:{}},studentProfiles:[],coachProfiles:[],activeStudentId:'',activeCoachId:'',design:{},tabIcons:{},stories:[],storyProgress:{},reviewSchedule:{}};
+let session={queue:[],index:0,correct:0,answered:false,mode:'mixed',category:'すべて',count:5,startedAt:null,results:[]};
+let currentQuestion=null, orderSelection=[];
+const $=id=>document.getElementById(id);
+const safeJSON=(s,fallback)=>{try{return JSON.parse(s)||fallback}catch{return fallback}};
+function loadData(){
+  const old=safeJSON(localStorage.getItem(KEY),[]);
+  lessons=Array.isArray(old)?old.map(normalizeLesson):[];
+  const savedMeta=safeJSON(localStorage.getItem(META_KEY),{});
+  meta={...meta,...savedMeta,weak:savedMeta.weak||{},history:savedMeta.history||[],student:{name:'学習パートナー',expressions:{},...(savedMeta.student||{})},coach:{name:'インストラクター',intro:'一緒に少しずつ学んでいこう！',images:{},...(savedMeta.coach||{})},design:savedMeta.design||{},tabIcons:savedMeta.tabIcons||{}};
+  ensureProfiles();
+  categories=Array.isArray(savedMeta.categories)&&savedMeta.categories.length?savedMeta.categories: [...DEFAULT_CATS];
+  meta.goal=Number(meta.goal)||5;
+  // Compatibility with the earlier prototype's design store.
+  const oldDesign=safeJSON(localStorage.getItem(DESIGN_KEY),{});
+  meta.design={...oldDesign,...meta.design};
+}
+function ensureProfiles(){
+  if(!meta.student||typeof meta.student!=='object')meta.student={name:'学習パートナー',expressions:{}};
+  if(!meta.coach||typeof meta.coach!=='object')meta.coach={name:'インストラクター',intro:'一緒に少しずつ学んでいこう！',images:{}};
+  if(!Array.isArray(meta.studentProfiles))meta.studentProfiles=[];
+  if(!Array.isArray(meta.coachProfiles))meta.coachProfiles=[];
+  if(!meta.studentProfiles.length)meta.studentProfiles=[{id:makeId(),name:meta.student.name||'学習パートナー',expressions:meta.student.expressions||{}}];
+  if(!meta.coachProfiles.length)meta.coachProfiles=[{id:makeId(),name:meta.coach.name||'インストラクター',intro:meta.coach.intro||'一緒に少しずつ学んでいこう！',images:meta.coach.images||{}}];
+  meta.studentProfiles=meta.studentProfiles.map(p=>({id:p.id||makeId(),name:p.name||'学習キャラクター',expressions:p.expressions||{},correctLine:p.correctLine||'',wrongLine:p.wrongLine||''}));
+  meta.coachProfiles=meta.coachProfiles.map(p=>({id:p.id||makeId(),name:p.name||'インストラクター',intro:p.intro||'一緒に学んでいこう！',images:p.images||{},correctLine:p.correctLine||'',wrongLine:p.wrongLine||''}));
+  let sp=meta.studentProfiles.find(p=>p.id===meta.activeStudentId)||meta.studentProfiles[0];
+  let cp=meta.coachProfiles.find(p=>p.id===meta.activeCoachId)||meta.coachProfiles[0];
+  meta.activeStudentId=sp.id;meta.activeCoachId=cp.id;meta.student=sp;meta.coach=cp;
+}
+function syncProfileLists(){
+  if(Array.isArray(meta.studentProfiles)){const i=meta.studentProfiles.findIndex(p=>p.id===meta.activeStudentId);if(i>=0)meta.studentProfiles[i]=meta.student;else meta.studentProfiles.push(meta.student)}
+  if(Array.isArray(meta.coachProfiles)){const i=meta.coachProfiles.findIndex(p=>p.id===meta.activeCoachId);if(i>=0)meta.coachProfiles[i]=meta.coach;else meta.coachProfiles.push(meta.coach)}
+}
+function refreshProfileSelects(){
+  const ss=$('studentProfileSelect'),cs=$('coachProfileSelect');
+  if(ss){ss.innerHTML=meta.studentProfiles.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');ss.value=meta.activeStudentId}
+  if(cs){cs.innerHTML=meta.coachProfiles.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');cs.value=meta.activeCoachId}
+}
+function selectStudentProfile(id){const p=meta.studentProfiles.find(x=>x.id===id);if(!p)return;meta.student=p;meta.activeStudentId=p.id;persist();loadCharacterForm();renderHome()}
+function selectCoachProfile(id){const p=meta.coachProfiles.find(x=>x.id===id);if(!p)return;meta.coach=p;meta.activeCoachId=p.id;persist();loadCharacterForm()}
+function saveStudentProfileAsNew(){
+  const p={id:makeId(),name:$('studentCharName').value.trim()||'学習キャラクター',expressions:{...(meta.student.expressions||{})},correctLine:$('studentCorrectLine').value.trim(),wrongLine:$('studentWrongLine').value.trim()};
+  meta.studentProfiles.push(p);meta.student=p;meta.activeStudentId=p.id;persist();loadCharacterForm();renderHome();alert('新しいキャラクターを保存しました。');
+}
+function saveCoachProfileAsNew(){
+  const p={id:makeId(),name:$('coachName').value.trim()||'インストラクター',intro:$('coachIntro').value.trim()||'一緒に学んでいこう！',images:{...(meta.coach.images||{})},correctLine:$('coachCorrectLine').value.trim(),wrongLine:$('coachWrongLine').value.trim()};
+  meta.coachProfiles.push(p);meta.coach=p;meta.activeCoachId=p.id;persist();loadCharacterForm();alert('新しいインストラクターを保存しました。');
+}
+function deleteStudentProfile(){if(meta.studentProfiles.length<=1){alert('キャラクターは最低1つ必要です。');return}if(!confirm(`「${meta.student.name}」を削除しますか？`))return;meta.studentProfiles=meta.studentProfiles.filter(p=>p.id!==meta.activeStudentId);meta.student=meta.studentProfiles[0];meta.activeStudentId=meta.student.id;persist();loadCharacterForm();renderHome()}
+function deleteCoachProfile(){if(meta.coachProfiles.length<=1){alert('インストラクターは最低1人必要です。');return}if(!confirm(`「${meta.coach.name}」を削除しますか？`))return;meta.coachProfiles=meta.coachProfiles.filter(p=>p.id!==meta.activeCoachId);meta.coach=meta.coachProfiles[0];meta.activeCoachId=meta.coach.id;persist();loadCharacterForm()}
+function normalizeLesson(l){return {id:l.id||makeId(),english:l.english||'',japanese:l.japanese||'',grammar:l.grammar||l.explanation||'',explanation:l.explanation||l.grammar||'',category:l.category||'未分類',image:l.image||'',hint:l.hint||'',tags:Array.isArray(l.tags)?l.tags:(l.tags?String(l.tags).split(',').map(x=>x.trim()).filter(Boolean):[]),createdAt:l.createdAt||Date.now()}}
+// v6: IndexedDB stores one atomic snapshot (including image data) rather than
+// putting large base64 images into localStorage's small synchronous quota.
+const DB_NAME='DialogueStudioStorage', DB_STORE='snapshots';
+let database=null, saveChain=Promise.resolve(), saveTimer=null, savePending=false;
+let storageReady=false, storageError='';
+function openDatabase(){return new Promise((resolve,reject)=>{
+  if(!window.indexedDB){reject(new Error('このブラウザはIndexedDBに対応していません'));return}
+  const request=indexedDB.open(DB_NAME,1);
+  request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains(DB_STORE))request.result.createObjectStore(DB_STORE)};
+  request.onsuccess=()=>resolve(request.result);
+  request.onerror=()=>reject(request.error||new Error('データベースを開けません'));
+  request.onblocked=()=>reject(new Error('他のタブでアプリを閉じてから試してください'));
+})}
+function dbRead(){return new Promise((resolve,reject)=>{
+  const tx=database.transaction(DB_STORE,'readonly'),r=tx.objectStore(DB_STORE).get('current');
+  r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);tx.onabort=()=>reject(tx.error);
+})}
+function dbWrite(snapshot){return new Promise((resolve,reject)=>{
+  const tx=database.transaction(DB_STORE,'readwrite');tx.objectStore(DB_STORE).put(snapshot,'current');
+  tx.oncomplete=()=>resolve(true);tx.onerror=()=>reject(tx.error||new Error('書き込みエラー'));
+  tx.onabort=()=>reject(tx.error||new Error('書き込み中断'));
+})}
+function storageMessage(message,failed=false){const el=$('storageStatus');if(el){el.textContent=message;el.style.color=failed?'#aa283c':''}}
+function snapshotNow(){syncProfileLists();return {format:'DialogueStudioBackup',version:3,exportedAt:new Date().toISOString(),lessons,categories,meta}}
+function validateSnapshot(data){
+  if(!data||typeof data!=='object'||!Array.isArray(data.lessons)||!data.meta||typeof data.meta!=='object')throw new Error('バックアップ形式が不正です');
+  if(data.format && data.format!=='DialogueStudioBackup')throw new Error('別のアプリのバックアップです');
+  if(data.lessons.some(l=>!l||typeof l!=='object'||typeof l.english!=='string'||typeof l.japanese!=='string'))throw new Error('教材データが不正です');
+  return data;
+}
+function applySnapshot(data){
+  lessons=data.lessons.map(normalizeLesson);
+  categories=Array.isArray(data.categories)&&data.categories.length?data.categories:[...DEFAULT_CATS];
+  const m=data.meta;
+  meta={...meta,...m,weak:m.weak||{},history:Array.isArray(m.history)?m.history:[],student:{...meta.student,...(m.student||{})},coach:{...meta.coach,...(m.coach||{})},studentProfiles:Array.isArray(m.studentProfiles)?m.studentProfiles:[],coachProfiles:Array.isArray(m.coachProfiles)?m.coachProfiles:[],activeStudentId:m.activeStudentId||'',activeCoachId:m.activeCoachId||'',design:m.design||{},tabIcons:m.tabIcons||{}};
+  ensureProfiles();
+}
+async function saveSnapshot(){
+  if(!storageReady)throw new Error(storageError||'保存領域が準備できていません');
+  const data=snapshotNow();
+  saveChain=saveChain.catch(()=>{}).then(()=>dbWrite(data));
+  try{await saveChain;storageMessage('IndexedDBで保存中・保存済み（端末内）');return true}
+  catch(err){storageMessage('保存失敗：'+err.message,true);throw err}
+}
+function persist(){
+  if(!storageReady){storageMessage('保存できません：'+(storageError||'初期化中'),true);return false}
+  savePending=true;
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>{savePending=false;saveSnapshot().catch(err=>alert('データの保存に失敗しました。バックアップを確認してください：'+err.message))},200);
+  return true;
+}
+async function flushSave(){clearTimeout(saveTimer);savePending=false;return saveSnapshot()}
+async function initStorage(){
+  try{
+    database=await openDatabase();
+    const saved=await dbRead();
+    if(saved){validateSnapshot(saved);applySnapshot(saved)}
+    else{
+      // One-time migration: legacy localStorage is only read, never erased.
+      loadData();
+      await dbWrite(snapshotNow());
+    }
+    storageReady=true;storageMessage('大容量保存（IndexedDB）を使用中。旧データは移行済みです。');
+  }catch(err){storageReady=false;storageError=err.message;storageMessage('保存機能を開始できません：'+err.message,true);alert('保存領域を開けませんでした。教材の変更は保存されません：'+err.message)}
+  applyBackground();drawNavIcons();renderHome();renderLessons();refreshStudySetup();renderRecords();
+}
+async function showStorageUsage(){
+  if(!navigator.storage?.estimate){storageMessage('このブラウザでは容量の確認に対応していません');return}
+  try{const e=await navigator.storage.estimate();const mb=n=>((n||0)/1048576).toFixed(1);storageMessage('ブラウザ全体の使用量：約'+mb(e.usage)+' MB / 推定上限：約'+mb(e.quota)+' MB（他のサイトのデータも含む場合があります）')}
+  catch(err){storageMessage('容量を確認できません：'+err.message,true)}
+}
+function makeId(){return 'l'+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function todayKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function todaysCount(){return meta.history.filter(h=>h.date===todayKey()).length}
+
+// Story learning and spaced review: metadata is stored in the existing backup-compatible meta object.
+function storyData(){if(!Array.isArray(meta.stories))meta.stories=[];if(!meta.storyProgress||typeof meta.storyProgress!=='object')meta.storyProgress={};return meta.stories}
+function reviewData(){if(!meta.reviewSchedule||typeof meta.reviewSchedule!=='object')meta.reviewSchedule={};return meta.reviewSchedule}
+function dateOffset(days){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+days);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function isDue(id){const r=reviewData()[id];return !!(r&&r.nextDate&&r.nextDate<=todayKey())}
+function updateReviewSchedule(id,ok){const data=reviewData(),r=data[id]||{step:0};const intervals=[1,3,7,14,30];r.step=ok?Math.min((r.step||0)+1,intervals.length):0;r.nextDate=dateOffset(ok?intervals[r.step-1]:1);r.lastResult=ok?'正解':'不正解';r.lastDate=todayKey();data[id]=r}
+function renderReviewSchedule(){const target=$('reviewScheduleList');if(!target)return;const rows=lessons.filter(l=>reviewData()[l.id]).sort((a,b)=>reviewData()[a.id].nextDate.localeCompare(reviewData()[b.id].nextDate));target.innerHTML=rows.length?rows.map(l=>{const r=reviewData()[l.id];return `<div class="lesson-card"><div class="between"><strong>${esc(l.english)}</strong><span class="tag">${isDue(l.id)?'今日の復習':'次回 '+esc(r.nextDate)}</span></div><p class="muted">前回：${esc(r.lastResult)} ／ ${esc(r.lastDate)}</p><button class="btn secondary small" onclick="quickStudy('${l.id}')">今すぐ練習</button></div>`}).join(''):'<div class="empty">問題に回答すると復習予定が自動で作成されます。</div>'}
+function startScheduledReview(){go('study');$('studyCategory').value='すべて';$('studyMode').value='scheduled';refreshStudySetup();startStudy()}
+
+function characterReaction(ok){const c=meta.student||{},line=(ok?c.correctLine:c.wrongLine)||'',img=c.expressions?.[ok?'happy':'confused']||c.expressions?.normal||'';if(!line&&!img)return '';return `<div class="coach">${img?`<img class="avatar" src="${img}" alt="${esc(c.name)}">`:''}<div class="speech"><div class="coach-name">${esc(c.name||'キャラクター')}</div><div>${esc(line|| (ok?'やった！':'次は頑張ろう！'))}</div></div></div>`}
+function storyCards(st){if(!Array.isArray(st.lessonIds)){st.lessonIds=lessons.filter(l=>l.category===st.category).map(l=>l.id)}return st.lessonIds.map(id=>lessons.find(l=>l.id===id)).filter(Boolean)}
+function renderStory(){storyData();const oldCategory=$('storyCategory').value;fillCategorySelect('storyCategory',false,oldCategory);const list=$('storyList');list.innerHTML=meta.stories.length?meta.stories.map(st=>{const count=storyCards(st).length;const at=Math.min(meta.storyProgress[st.id]||0,Math.max(0,count-1));return `<div class="lesson-card"><h3>${esc(st.title)}</h3><p class="muted">${esc(st.description||'')}　${count}カード</p><div class="row"><button class="btn secondary small" onclick="openStory('${st.id}')">${at?'続きから読む':'読み始める'}</button><button class="btn secondary small" onclick="editStory('${st.id}')">カードを編集・並べ替え</button><button class="btn secondary small" onclick="startStoryQuiz('${st.id}','choice')">英和訳4択</button><button class="btn secondary small" onclick="startStoryQuiz('${st.id}','japanese')">英和訳入力</button><button class="btn ghost small" onclick="restartStory('${st.id}')">最初から</button><button class="btn danger small" onclick="deleteStory('${st.id}')">削除</button></div></div>`}).join(''):'<div class="empty">ストーリーがまだありません。カテゴリーを選んで作成してください。</div>'}
+function saveStory(){const category=$('storyCategory').value,title=$('storyTitle').value.trim(),description=$('storyDescription').value.trim();if(!title){alert('ストーリー名を入力してください。');return}if(!lessons.some(l=>l.category===category)){alert('このカテゴリーには教材がありません。先に教材を登録してください。');return}meta.stories.push({id:makeId(),title,description,category,lessonIds:lessons.filter(l=>l.category===category).map(l=>l.id)});if(!persist()){meta.stories.pop();return}$('storyTitle').value='';$('storyDescription').value='';renderStory();alert('ストーリーを保存しました。')}
+function editStory(id){const st=storyData().find(x=>x.id===id);if(!st)return;const selected=storyCards(st);const available=lessons.filter(l=>!st.lessonIds.includes(l.id));$('storyEditor').innerHTML=`<div class="panel stack"><h3>${esc(st.title)}：カードの順番</h3><p class="muted">▲▼で並べ替え。カテゴリーを問わず、登録済みの教材を追加できます。</p>${selected.map((l,i)=>`<div class="lesson-card story-card-row"><strong>${i+1}. ${esc(l.english)}</strong><button class="btn ghost small" onclick="shiftStoryCard('${id}',${i},-1)" ${i===0?'disabled':''}>▲</button><button class="btn ghost small" onclick="shiftStoryCard('${id}',${i},1)" ${i===selected.length-1?'disabled':''}>▼</button><button class="btn danger small" onclick="removeStoryCard('${id}',${i})">外す</button></div>`).join('')}${available.length?`<div class="field"><label>カードを追加</label><select id="addStoryCardSelect">${available.map(l=>`<option value="${esc(l.id)}">${esc(l.category)}：${esc(l.english)}</option>`).join('')}</select><button class="btn secondary" onclick="addStoryCard('${id}')">追加する</button></div>`:''}<button class="btn" onclick="$('storyEditor').innerHTML=''">編集を閉じる</button></div>`}
+function shiftStoryCard(id,index,delta){const st=storyData().find(x=>x.id===id);if(!st)return;const arr=storyCards(st).map(l=>l.id),j=index+delta;if(j<0||j>=arr.length)return;[arr[index],arr[j]]=[arr[j],arr[index]];st.lessonIds=arr;meta.storyProgress[id]=0;persist();renderStory();editStory(id)}
+function removeStoryCard(id,index){const st=storyData().find(x=>x.id===id);if(!st)return;st.lessonIds=storyCards(st).map(l=>l.id);st.lessonIds.splice(index,1);meta.storyProgress[id]=0;persist();renderStory();editStory(id)}
+function addStoryCard(id){const st=storyData().find(x=>x.id===id),lId=$('addStoryCardSelect')?.value;if(!st||!lId)return;st.lessonIds=storyCards(st).map(l=>l.id);if(!st.lessonIds.includes(lId))st.lessonIds.push(lId);persist();renderStory();editStory(id)}
+function startStoryQuiz(id,mode){const st=storyData().find(x=>x.id===id);if(!st)return;const cards=storyCards(st);if(!cards.length){alert('先にカードを追加してください。');return}go('study');session={queue:cards,index:0,correct:0,answered:false,mode,category:st.category,count:cards.length,startedAt:Date.now(),results:[],storyId:id};renderQuestion();$('studyArea').scrollIntoView({behavior:'smooth',block:'start'})}
+function deleteStory(id){if(!confirm('このストーリーを削除しますか？教材そのものは残ります。'))return;meta.stories=storyData().filter(st=>st.id!==id);delete meta.storyProgress[id];persist();$('storyReader').innerHTML='';$('storyEditor').innerHTML='';renderStory()}
+function restartStory(id){meta.storyProgress[id]=0;persist();openStory(id)}
+function openStory(id){const st=storyData().find(x=>x.id===id);if(!st)return;const pages=storyCards(st);if(!pages.length){$('storyReader').innerHTML='<div class="empty">カードがありません。編集画面から追加してください。</div>';return}const index=Math.max(0,Math.min(meta.storyProgress[id]||0,pages.length-1)),l=pages[index];$('storyReader').innerHTML=`<div class="panel stack"><div class="between"><strong>${esc(st.title)}</strong><span class="tag">${index+1} / ${pages.length}</span></div><div class="progress"><div style="width:${(index+1)/pages.length*100}%"></div></div>${l.image?`<img src="${l.image}" alt="教材画像" class="question-image">`:''}<h2 style="margin:0">${esc(l.english)}</h2><details><summary>日本語訳を表示</summary><p>${esc(l.japanese||'未登録')}</p></details><details><summary>文法・表現の解説を表示</summary><p>${esc(l.explanation||'解説はまだ登録されていません。')}</p></details><div class="row"><button class="btn secondary" ${index===0?'disabled':''} onclick="moveStory('${id}',-1)">← 前へ</button><button class="btn" onclick="moveStory('${id}',1)">${index===pages.length-1?'読み終える':'次へ →'}</button></div><button class="btn ghost small" onclick="go('story')">一覧へ戻る</button></div>`;$('storyReader').scrollIntoView({behavior:'smooth',block:'start'})}
+function moveStory(id,delta){const st=storyData().find(x=>x.id===id);if(!st)return;const count=storyCards(st).length;if(!count)return;const next=(meta.storyProgress[id]||0)+delta;if(next>=count){meta.storyProgress[id]=0;persist();$('storyReader').innerHTML='<div class="panel stack"><h2>📖 読了！</h2><p>ストーリーを最後まで読みました。</p><button class="btn" onclick="openStory(\''+id+'\')">もう一度読む</button></div>';renderStory();return}meta.storyProgress[id]=Math.max(0,next);persist();renderStory();openStory(id)}
+
+function go(screen){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===screen));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.screen===screen||screen==='settings'&&b.dataset.screen==='design'||screen==='characters'&&b.dataset.screen==='design'||screen==='editor'&&b.dataset.screen==='lessons'));if(screen==='home')renderHome();if(screen==='lessons')renderLessons();if(screen==='study')refreshStudySetup();if(screen==='story')renderStory();if(screen==='records')renderRecords();if(screen==='characters')loadCharacterForm();if(screen==='design')loadDesignForm();if(screen==='settings'){}window.scrollTo({top:0,behavior:'smooth'})}
+function setImg(el,src){if(src){el.src=src;el.classList.remove('hidden')}else{el.removeAttribute('src');el.classList.add('hidden')}}
+function renderHome(){const done=todaysCount(),goal=meta.goal||5;$('todayProgressText').textContent=`${done} / ${goal} 問`;$('todayProgressSub').textContent=done>=goal?'今日の目標達成！':'目標まであと'+Math.max(0,goal-done)+'問';$('todayProgressBar').style.width=Math.min(100,done/goal*100)+'%';$('homeGreeting').textContent=`${meta.student.name||'今日'}と英語学習`;const dueCount=lessons.filter(l=>isDue(l.id)).length;$('dueTodayHint').textContent=dueCount?`📅 今日の復習：${dueCount}件`:'📅 今日の復習予定はありません';const rec=[...lessons].slice(-3).reverse();$('recentLessons').innerHTML=rec.length?rec.map(l=>`<div class="lesson-card"><h3>${esc(l.english)}</h3><p class="muted">${esc(l.japanese)}</p><span class="tag">${esc(l.category)}</span><button class="btn secondary small" onclick="quickStudy('${l.id}')">この教材を学ぶ</button></div>`).join(''):'<div class="empty">まだ教材がありません。「教材一覧」から登録してみよう。</div>'}
+function fillCategorySelect(id,includeAll=false,selected=''){const el=$(id);if(!el)return;const opts=(includeAll?['すべて']:[]).concat(categories);el.innerHTML=opts.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');if(selected&&opts.includes(selected))el.value=selected}
+function renderLessons(){fillCategorySelect('lessonCategory',false);const filters=['すべて',...categories];$('categoryFilters').innerHTML=filters.map(c=>`<button class="pill ${c===selectedCategory?'active':''}" onclick="selectedCategory=${JSON.stringify(c)};renderLessons()">${esc(c)}</button>`).join('');const q=($('lessonSearch').value||'').toLowerCase();const arr=lessons.filter(l=>(selectedCategory==='すべて'||l.category===selectedCategory)&&[l.english,l.japanese,l.explanation,l.category,(l.tags||[]).join(' ')].join(' ').toLowerCase().includes(q));$('lessonList').innerHTML=arr.length?arr.map(l=>`<div class="lesson-card"><div class="between"><h3>${esc(l.english)}</h3><span class="tag">${esc(l.category)}</span></div><p>${esc(l.japanese)}</p>${l.explanation?`<p class="muted">${esc(l.explanation.slice(0,100))}${l.explanation.length>100?'…':''}</p>`:''}${l.image?`<img class="result-image" src="${l.image}" alt="教材画像">`:''}<div class="row" style="margin-top:10px"><button class="btn small" onclick="quickStudy('${l.id}')">学ぶ</button><button class="btn secondary small" onclick="editLesson('${l.id}')">編集</button><button class="btn danger small" onclick="deleteLesson('${l.id}')">削除</button></div></div>`).join(''):'<div class="empty">該当する教材がありません。教材を追加するか、カテゴリーを変えてみてね。</div>'}
+function newLesson(){if($('lessonSaveStatus'))$('lessonSaveStatus').textContent='';currentEditId=null;editImage=null;$('lessonForm').reset();$('editorTitle').textContent='教材を登録';fillCategorySelect('lessonCategory');setImg($('lessonImagePreview'),'');$('clearLessonImage').classList.add('hidden');go('editor')}
+function editLesson(id){if($('lessonSaveStatus'))$('lessonSaveStatus').textContent='';const l=lessons.find(x=>x.id===id);if(!l)return;currentEditId=id;editImage=l.image||null;$('editorTitle').textContent='教材を編集';$('lessonEnglish').value=l.english;$('lessonJapanese').value=l.japanese;$('lessonExplanation').value=l.explanation||l.grammar||'';$('lessonHint').value=l.hint||'';$('lessonTags').value=(l.tags||[]).join(', ');$('lessonNewCategory').value='';fillCategorySelect('lessonCategory');if(!categories.includes(l.category)){categories.push(l.category);persist();fillCategorySelect('lessonCategory')}$('lessonCategory').value=l.category;setImg($('lessonImagePreview'),editImage);$('clearLessonImage').classList.toggle('hidden',!editImage);go('editor')}
+function deleteLesson(id){if(!confirm('この教材を削除しますか？'))return;lessons=lessons.filter(l=>l.id!==id);delete meta.weak[id];persist();renderLessons();renderHome()}
+function clearLessonImage(){editImage=null;$('lessonImage').value='';setImg($('lessonImagePreview'),'');$('clearLessonImage').classList.add('hidden')}
+$('lessonImage').addEventListener('change',async e=>{if(e.target.files[0]){editImage=await imageToData(e.target.files[0]);setImg($('lessonImagePreview'),editImage);$('clearLessonImage').classList.remove('hidden')}});
+async function saveLessonNow(e){
+ if(e)e.preventDefault();
+ const status=$('lessonSaveStatus');
+ if(!status){alert('保存欄が見つかりません。');return false}
+ status.textContent='保存ボタンは反応しました。保存処理を確認中…';
+ try{
+  status.textContent='保存しています…';
+  const english=$('lessonEnglish').value.trim(),japanese=$('lessonJapanese').value.trim();
+  if(!english||!japanese){status.textContent='英文と日本語訳の両方を入力してください。';return false}
+  const previousLessons=lessons.slice(),previousCategories=categories.slice();
+  const category=$('lessonNewCategory').value.trim()||$('lessonCategory').value||'未分類';
+  if(!categories.includes(category))categories.push(category);
+  const old=lessons.find(l=>l.id===currentEditId);
+  const l=normalizeLesson({...(old||{}),id:currentEditId||makeId(),english,japanese,explanation:$('lessonExplanation').value.trim(),grammar:$('lessonExplanation').value.trim(),category,image:editImage||'',hint:$('lessonHint').value.trim(),tags:$('lessonTags').value.split(',').map(x=>x.trim()).filter(Boolean),createdAt:old?.createdAt||Date.now()});
+  if(currentEditId&&old)lessons=lessons.map(x=>x.id===currentEditId?l:x);else lessons.push(l);
+  try{await flushSave()}catch(err){lessons=previousLessons;categories=previousCategories;status.textContent='保存できませんでした：'+err.message;return false}
+  status.textContent='保存しました！';alert('教材を保存しました！');selectedCategory='すべて';$('lessonSearch').value='';
+  go('lessons');return true;
+ }catch(err){status.textContent='保存エラー：'+(err?.message||String(err));alert(status.textContent);return false}
+}
+$('lessonForm').addEventListener('submit',saveLessonNow);
+
+function refreshStudySetup(){const previous=$('studyCategory').value||'すべて';fillCategorySelect('studyCategory',true,previous);if([...$('studyCategory').options].some(o=>o.value===previous))$('studyCategory').value=previous;const cat=$('studyCategory').value||'すべて';const count=lessons.filter(l=>cat==='すべて'||l.category===cat).length;$('studySetupInfo').textContent=`対象の教材：${count}件。選択問題には、選択肢を作るため複数の教材があると便利です。`}
+function quickStudy(id){$('studyCategory').value='すべて';startStudy([id])}
+function startReview(){go('study');$('studyMode').value='review';startStudy()}
+function startStudy(onlyIds=null){if(!lessons.length){alert('先に教材を登録してください。');go('lessons');return}const cat=$('studyCategory').value||'すべて',mode=$('studyMode').value||'mixed',count=Number($('studyCount').value)||5;let pool=lessons.filter(l=>(cat==='すべて'||l.category===cat));if(onlyIds)pool=lessons.filter(l=>onlyIds.includes(l.id));if(mode==='review')pool=pool.filter(l=>(meta.weak[l.id]?.level||0)>0);if(mode==='scheduled')pool=pool.filter(l=>isDue(l.id));if(!pool.length){alert(mode==='review'?'復習する問題はまだありません。':mode==='scheduled'?'今日が復習予定日の教材はありません。':'この条件に合う教材がありません。');return}pool=shuffle(pool).slice(0,Math.min(count,pool.length));session={queue:pool,index:0,correct:0,answered:false,mode,category:cat,count:pool.length,startedAt:Date.now(),results:[]};renderQuestion()}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function renderQuestion(){const area=$('studyArea');if(session.index>=session.queue.length){finishStudy();return}const l=session.queue[session.index];currentQuestion=l;session.answered=false;orderSelection=[];const mode=session.mode==='mixed'?['choice','english','japanese','fill','order','translate'][Math.floor(Math.random()*6)]:session.mode;session.currentMode=mode;const num=session.index+1;let prompt='',content='';const choices=makeChoices(l,'japanese');session.choices=choices;if(mode==='choice'){prompt='日本語訳を選ぼう';content=choices.map((c,i)=>`<button class="choice" onclick="selectChoice(${i})">${esc(c.label)}</button>`).join('')}else if(mode==='english'){prompt='この日本語に合う英語を入力しよう';content=`<p>${esc(l.japanese)}</p><textarea id="answerInput" placeholder="英文を入力"></textarea><button class="btn" onclick="checkTextAnswer('english')">答え合わせ</button>`}else if(mode==='japanese'){prompt='英文の意味を日本語で入力しよう';content=`<p class="question-title">${esc(l.english)}</p><textarea id="answerInput" placeholder="日本語訳を入力"></textarea><button class="btn" onclick="checkTextAnswer('japanese')">答え合わせ</button>`}else if(mode==='fill'){const blank=makeBlank(l.english);session.blankAnswer=blank.answer;prompt='空欄に入る語句を入力しよう';content=`<p class="question-title">${esc(blank.text)}</p><input id="answerInput" placeholder="空欄の語句"><p class="muted">ヒント：${esc(l.hint||'英文全体の意味を考えよう')}</p><button class="btn" onclick="checkTextAnswer('fill')">答え合わせ</button>`}else if(mode==='order'){prompt='単語を正しい順番に並べよう';const words=shuffle(l.english.trim().split(/\s+/));content=`<div id="orderSlots" class="row"></div><div id="orderWords" class="row">${words.map((w,i)=>`<button class="pill" data-word="${esc(w)}" data-index="${i}" onclick="pickWord(this)">${esc(w)}</button>`).join('')}</div><button class="btn secondary" onclick="undoWord()">ひとつ戻す</button> <button class="btn" onclick="checkOrder()">答え合わせ</button>`}else if(mode==='translate'){prompt='日本語から英語を作ろう';content=`<p class="question-title">${esc(l.japanese)}</p><textarea id="answerInput" placeholder="英語を入力"></textarea><button class="btn" onclick="checkTextAnswer('english')">答え合わせ</button>`}
+const expr=meta.student.expressions.normal||'';const img=l.image?`<img src="${l.image}" class="question-image" alt="教材画像">`:'';area.innerHTML=`<div class="between"><span class="tag">${num} / ${session.queue.length} 問</span><span class="tag">${esc(l.category)}</span></div><div class="progress"><div style="width:${(num-1)/session.queue.length*100}%"></div></div>${img}<div class="question-box"><div class="muted">${esc(prompt)}</div><div class="question-title" style="margin-top:7px">${mode==='choice'?esc(l.english):''}</div>${content}<div id="answerFeedback"></div></div><div id="coachResponse">${coachBubble(meta.coach.intro||'一緒に学んでいこう！','normal')}</div><div class="row"><button class="btn ghost" onclick="showHint()">ヒントを見る</button><button class="btn secondary" onclick="skipQuestion()">スキップ</button></div>`}
+function makeChoices(l,key){const correct=l[key];const others=shuffle([...new Set(lessons.filter(x=>x.id!==l.id&&x[key]&&x[key]!==correct).map(x=>x[key]))]).slice(0,3);return shuffle([correct,...others]).map(v=>({value:v,label:v}))}
+function makeBlank(text){const words=text.trim().split(/\s+/);if(words.length<2)return{text:'________',answer:text};const candidates=words.map((w,i)=>({w,i})).filter(x=>/[a-zA-Z]/.test(x.w)&&x.w.length>2);const target=(candidates[Math.floor(Math.random()*candidates.length)]||{w:words[0],i:0});const copy=[...words];copy[target.i]='________';return{text:copy.join(' '),answer:target.w.replace(/[.,!?;:]+$/,'')}}
+function selectChoice(index){if(session.answered)return;const value=session.choices?.[index]?.value;if(value===undefined)return;const ok=normalize(value)===normalize(currentQuestion.japanese);answerResult(ok,value,currentQuestion.japanese)}
+function checkTextAnswer(kind,expectedOverride){if(session.answered)return;const input=$('answerInput')?.value.trim()||'';let expected=kind==='japanese'?currentQuestion.japanese:kind==='fill'?session.blankAnswer:currentQuestion.english;const ok=normalize(input)===normalize(expected)||(kind==='japanese'&&normalize(input).includes(normalize(expected))&&normalize(expected).length>0);answerResult(ok,input,expected)}
+function normalize(s){return String(s||'').toLowerCase().trim().replace(/[.,!?;:"'“”‘’]/g,'').replace(/\s+/g,' ')}
+function answerResult(ok,user,expected){if(session.answered)return;session.answered=true;if(ok)session.correct++;const l=currentQuestion;const w=meta.weak[l.id]||{level:0,wrong:0,right:0,lastWrong:''};if(ok){w.right=(w.right||0)+1;w.level=Math.max(0,(w.level||0)-1)}else{w.wrong=(w.wrong||0)+1;w.level=Math.min(5,(w.level||0)+2);w.lastWrong=todayKey()}meta.weak[l.id]=w;updateReviewSchedule(l.id,ok);session.results.push({id:l.id,ok,mode:session.currentMode});const result={date:todayKey(),at:Date.now(),id:l.id,english:l.english,ok,mode:session.currentMode};meta.history.push(result);if(meta.history.length>3000)meta.history=meta.history.slice(-3000);persist();const fb=$('answerFeedback');fb.innerHTML=`<div class="feedback ${ok?'good':'bad'}"><strong>${ok?'正解！':'もう一度復習しよう'}</strong><p>正解：${esc(expected)}</p>${!ok?`<p>あなたの回答：${esc(user||'（未入力）')}</p>`:''}${l.explanation?`<p>${esc(l.explanation)}</p>`:''}<button class="btn ${ok?'secondary':'ghost'} small" onclick="toggleAnswerExplanation()">解説を確認</button></div><div id="extraExplanation" class="hidden">${l.explanation?esc(l.explanation):'解説はまだ登録されていません。教材編集から追加できます。'}</div>`;const img=ok?meta.design.correctFeedback:meta.design.wrongFeedback;const expr=ok?(meta.student.expressions.happy||meta.student.expressions.normal):(meta.student.expressions.confused||meta.student.expressions.normal);$('coachResponse').innerHTML=coachBubble((ok?meta.coach.correctLine:meta.coach.wrongLine)||(ok?'その調子！よくできたね。':'正解を確認して、もう一度挑戦しよう。'),ok?'happy':'wrong',img)+characterReaction(ok);if(!ok&&img)$('answerFeedback').insertAdjacentHTML('beforeend',`<img class="result-image" src="${img}" alt="リアクション">`);fb.insertAdjacentHTML('beforeend',`<div class="row" style="margin-top:12px"><button class="btn" onclick="nextQuestion()">次の問題</button></div>`);renderHome()}
+function toggleAnswerExplanation(){$('extraExplanation')?.classList.toggle('hidden')}
+function coachBubble(text,expression='normal',overrideImage=''){const image=overrideImage||meta.coach.images[expression]||meta.coach.images.normal||meta.student.expressions[expression]||meta.student.expressions.normal;return `<div class="coach">${image?`<img class="avatar" src="${image}" alt="${esc(meta.coach.name)}">`:`<div class="avatar" style="display:grid;place-items:center;font-size:36px">🎓</div>`}<div class="speech"><div class="coach-name">${esc(meta.coach.name||'インストラクター')}</div><div>${esc(text||'一緒に学んでいこう！')}</div></div></div>`}
+function showHint(){const l=currentQuestion;if(!l)return;const target=$('coachResponse');target.innerHTML=`<div class="panel"><strong>💡 ヒント</strong><p>${esc(l.hint||'ヒントはまだ登録されていません。')}</p></div>`}
+function skipQuestion(){if(!session.answered){session.results.push({id:currentQuestion.id,ok:false,mode:session.currentMode,skipped:true});const w=meta.weak[currentQuestion.id]||{level:0,wrong:0,right:0};w.level=Math.min(5,(w.level||0)+1);meta.weak[currentQuestion.id]=w;meta.history.push({date:todayKey(),at:Date.now(),id:currentQuestion.id,english:currentQuestion.english,ok:false,mode:session.currentMode,skipped:true});persist()}nextQuestion()}
+function pickWord(btn){if(session.answered||btn.disabled)return;btn.disabled=true;orderSelection.push({word:btn.dataset.word,index:btn.dataset.index});const slot=$('orderSlots');slot.insertAdjacentHTML('beforeend',`<button class="pill active" data-order-index="${btn.dataset.index}" onclick="removeWord(${btn.dataset.index})">${esc(btn.dataset.word)}</button>`)}
+function removeWord(index){if(session.answered)return;orderSelection=orderSelection.filter(x=>x.index!==String(index));const source=$('orderWords')?.querySelector(`[data-index="${index}"]`);if(source)source.disabled=false;const slot=$('orderSlots');if(slot){slot.innerHTML='';orderSelection.forEach(x=>slot.insertAdjacentHTML('beforeend',`<button class="pill active" data-order-index="${x.index}" onclick="removeWord('${x.index}')">${esc(x.word)}</button>`))}}
+function undoWord(){const last=orderSelection[orderSelection.length-1];if(last)removeWord(String(last.index))}
+function checkOrder(){const user=orderSelection.map(x=>x.word).join(' ');answerResult(normalize(user)===normalize(currentQuestion.english),user,currentQuestion.english)}
+function nextQuestion(){session.index++;renderQuestion()}
+function finishStudy(){const total=session.results.filter(r=>!r.skipped).length;const correct=session.results.filter(r=>r.ok&&!r.skipped).length;$('studyArea').innerHTML=`<div class="panel stack" style="margin-top:14px;text-align:center"><div style="font-size:42px">🎉</div><h2 style="margin:0">学習おつかれさま！</h2><p>正解：${correct} / ${total} 問</p><div class="progress"><div style="width:${total?correct/total*100:0}%"></div></div><p class="muted">今日の記録に保存しました。苦手な問題は復習リストから取り組めます。</p><button class="btn" onclick="go('records')">学習記録を見る</button><button class="btn secondary" onclick="go('study')">もう一度学習する</button></div>`;renderHome()}
+function renderRecords(){const today=meta.history.filter(h=>h.date===todayKey()),correct=today.filter(h=>h.ok&&!h.skipped).length,total=meta.history.filter(h=>!h.skipped).length,allCorrect=meta.history.filter(h=>h.ok).length;const stats=[['今日の問題数',today.length+'問'],['今日の正答率',today.filter(h=>!h.skipped).length?Math.round(correct/today.filter(h=>!h.skipped).length*100)+'%':'—'],['累計学習',total+'問'],['累計正解',allCorrect+'問']];$('recordStats').innerHTML=stats.map(s=>`<div class="stat"><div class="muted">${s[0]}</div><strong style="font-size:22px">${s[1]}</strong></div>`).join('');renderReviewSchedule();$('dailyGoal').value=meta.goal||5;$('goalRecord').innerHTML=`<div class="daily-box"><strong>${today.length} / ${meta.goal||5} 問</strong><div class="progress"><div style="width:${Math.min(100,today.length/(meta.goal||5)*100)}%"></div></div></div>`;const weak=lessons.filter(l=>(meta.weak[l.id]?.level||0)>0).sort((a,b)=>(meta.weak[b.id]?.level||0)-(meta.weak[a.id]?.level||0));$('weakList').innerHTML=weak.length?weak.map(l=>`<div class="lesson-card"><div class="between"><h3>${esc(l.english)}</h3><span class="tag">苦手度 ${meta.weak[l.id].level}/5</span></div><p>${esc(l.japanese)}</p><p class="muted">間違い ${meta.weak[l.id].wrong||0}回・正解 ${meta.weak[l.id].right||0}回</p><button class="btn secondary small" onclick="quickStudy('${l.id}')">この問題を復習</button></div>`).join(''):'<div class="empty">苦手な問題はまだありません。間違えた問題はここに表示されます。</div>';$('historyList').innerHTML=meta.history.slice(-15).reverse().map(h=>`<div class="lesson-card"><div class="between"><strong>${esc(h.english||lessons.find(l=>l.id===h.id)?.english||'教材')}</strong><span class="tag">${h.ok?'正解':h.skipped?'スキップ':'復習'}</span></div><p class="muted">${esc(h.date||'')} ・ ${esc(h.mode||'')}</p></div>`).join('')||'<div class="empty">まだ学習記録がありません。</div>'}
+function saveGoal(){const n=Math.max(1,Math.min(500,Number($('dailyGoal').value)||5));meta.goal=n;persist();renderRecords();renderHome();alert('一日の目標を保存しました。')}
+function clearReviewHistory(){if(!confirm('学習履歴と苦手度をリセットしますか？教材は削除されません。'))return;meta.history=[];meta.weak={};persist();renderRecords();renderHome()}
+function saveStudentCharacter(){meta.student.name=$('studentCharName').value.trim()||'学習パートナー';meta.student.correctLine=$('studentCorrectLine').value.trim();meta.student.wrongLine=$('studentWrongLine').value.trim();meta.activeStudentId=meta.student.id||meta.activeStudentId;syncProfileLists();persist();refreshProfileSelects();renderHome();alert('選択中のキャラクターを上書き保存しました。')}
+function loadCharacterForm(){ensureProfiles();refreshProfileSelects();const s=meta.student;const c=meta.coach;$('studentCharName').value=s.name||'';$('coachName').value=c.name||'';$('coachIntro').value=c.intro||'';$('studentCorrectLine').value=s.correctLine||'';$('studentWrongLine').value=s.wrongLine||'';$('coachCorrectLine').value=c.correctLine||'';$('coachWrongLine').value=c.wrongLine||'';[['exprNormal','normal'],['exprHappy','happy'],['exprConfused','confused'],['exprSurprised','surprised']].forEach(([id,k])=>{ $(id).value='';setImg($('preview'+({normal:'Normal',happy:'Happy',confused:'Confused',surprised:'Surprised'}[k])),s.expressions[k])});[['coachNormal','normal'],['coachTalk','talk'],['coachHappy','happy'],['coachWrong','wrong']].forEach(([id,k])=>{ $(id).value='';setImg($('previewCoach'+({normal:'Normal',talk:'Talk',happy:'Happy',wrong:'Wrong'}[k])),c.images[k])});$('coachDemo').innerHTML=coachBubble(c.intro||'一緒に学ぼう！','normal')}
+function attachImageInput(id,callback){$(id).addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{const data=await imageToData(file);callback(data)}catch(err){alert('画像を読み込めませんでした。別の画像を試してください。')}})}
+[['exprNormal','normal','previewNormal'],['exprHappy','happy','previewHappy'],['exprConfused','confused','previewConfused'],['exprSurprised','surprised','previewSurprised']].forEach(([id,k,p])=>attachImageInput(id,data=>{meta.student.expressions[k]=data;persist();setImg($(p),data)}));
+[['coachNormal','normal','previewCoachNormal'],['coachTalk','talk','previewCoachTalk'],['coachHappy','happy','previewCoachHappy'],['coachWrong','wrong','previewCoachWrong']].forEach(([id,k,p])=>attachImageInput(id,data=>{meta.coach.images[k]=data;persist();setImg($(p),data);$('coachDemo').innerHTML=coachBubble(meta.coach.intro,'normal')}));
+function saveCoach(){meta.coach.name=$('coachName').value.trim()||'インストラクター';meta.coach.intro=$('coachIntro').value.trim()||'一緒に学んでいこう！';meta.coach.correctLine=$('coachCorrectLine').value.trim();meta.coach.wrongLine=$('coachWrongLine').value.trim();meta.activeCoachId=meta.coach.id||meta.activeCoachId;syncProfileLists();persist();refreshProfileSelects();$('coachDemo').innerHTML=coachBubble(meta.coach.intro,'normal');alert('選択中のインストラクターを上書き保存しました。')}
+function loadDesignForm(){setImg($('previewBg'),meta.design.background);setImg($('previewCorrect'),meta.design.correctFeedback);setImg($('previewWrong'),meta.design.wrongFeedback);$('tabIconFields').innerHTML=NAVS.map(([key,label,emoji])=>`<div class="field"><label>${label}のアイコン</label><div class="row"><span style="font-size:24px">${emoji}</span><input type="file" accept="image/*" id="icon-${key}"><button class="btn ghost small" onclick="removeTabIcon('${key}')">戻す</button></div><img id="previewIcon-${key}" class="preview hidden" alt="${label}アイコン"></div>`).join('');NAVS.forEach(([key])=>{setImg($('previewIcon-'+key),meta.tabIcons[key]);$('icon-'+key).addEventListener('change',async e=>{if(e.target.files[0]){meta.tabIcons[key]=await imageToData(e.target.files[0]);setImg($('previewIcon-'+key),meta.tabIcons[key]);persist()}})});drawNavIcons()}
+attachImageInput('bgUpload',data=>{meta.design.background=data;setImg($('previewBg'),data);persist()});attachImageInput('correctUpload',data=>{meta.design.correctFeedback=data;setImg($('previewCorrect'),data);persist()});attachImageInput('wrongUpload',data=>{meta.design.wrongFeedback=data;setImg($('previewWrong'),data);persist()});
+function applyDesign(){persist();applyBackground();alert('デザインを適用しました。')}
+function applyBackground(){document.body.style.background=meta.design.background?`linear-gradient(#f4f5fb45,#f4f5fb45),url("${meta.design.background}") center/cover fixed`:'var(--bg)';drawNavIcons()}
+function saveTabIcons(){persist();drawNavIcons();alert('タブアイコンを保存しました。')}
+function removeTabIcon(key){delete meta.tabIcons[key];persist();setImg($('previewIcon-'+key),'');drawNavIcons()}
+function drawNavIcons(){document.querySelectorAll('.nav-icon').forEach(el=>{const key=el.dataset.icon,src=meta.tabIcons[key];const fallback=NAVS.find(x=>x[0]===key)?.[2]||'•';el.innerHTML=src?`<img src="${src}" alt="">`:fallback})}
+function resetDesign(){if(!confirm('背景・リアクション画像・タブアイコンを初期状態に戻しますか？'))return;meta.design={};meta.tabIcons={};persist();applyBackground();loadDesignForm()}
+async function imageToData(file){if(!file.type.startsWith('image/'))throw new Error('not image');const raw=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)});return await resizeData(raw,1000,.82)}
+function resizeData(src,max=1000,quality=.82){return new Promise(resolve=>{const im=new Image();im.onload=()=>{let w=im.width,h=im.height;const scale=Math.min(1,max/Math.max(w,h));w=Math.round(w*scale);h=Math.round(h*scale);const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);ctx.drawImage(im,0,0,w,h);resolve(c.toDataURL('image/jpeg',quality))};im.onerror=()=>resolve(src);im.src=src})}
+async function exportBackup(){
+  try{
+    if(!storageReady)throw new Error('保存領域が利用できません');
+    await flushSave();
+    const payload=await dbRead();validateSnapshot(payload);
+    const blob=new Blob([JSON.stringify(payload)],{type:'application/json'});
+    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`dialogue-studio-backup-${todayKey()}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
+    storageMessage('バックアップを出力しました。ダウンロードフォルダでファイルを確認してください。');
+  }catch(err){alert('バックアップに失敗しました：'+err.message)}
+}
+async function importBackup(){
+  const file=$('backupFile').files?.[0];if(!file){alert('先にバックアップのJSONファイルを選んでください。');return}
+  if(!storageReady){alert('保存領域が利用できません');return}
+  try{
+    const data=validateSnapshot(JSON.parse(await file.text()));
+    if(!confirm(`教材 ${data.lessons.length} 件のバックアップです。現在のデータをすべて置き換えます。現在のバックアップも保存しましたか？`))return;
+    // Only replace live state after the whole snapshot was committed.
+    await saveChain.catch(()=>{});clearTimeout(saveTimer);savePending=false;
+    await dbWrite(data);applySnapshot(data);applyBackground();drawNavIcons();go('home');
+    storageMessage('バックアップを復元しました');alert('バックアップを復元しました。');
+  }catch(err){alert('復元できませんでした。現在のデータは変更していません：'+err.message)}
+}
+function resetAllData(){if(!storageReady){alert('保存領域が利用できません');return}if(!confirm('本当にすべての教材・画像・カテゴリー・記録を削除しますか？この操作は取り消せません。先にバックアップを作ることをおすすめします。'))return;lessons=[];categories=[...DEFAULT_CATS];meta={goal:5,history:[],weak:{},student:{name:'学習パートナー',expressions:{}},coach:{name:'インストラクター',intro:'一緒に少しずつ学んでいこう！',images:{}},studentProfiles:[],coachProfiles:[],activeStudentId:'',activeCoachId:'',design:{},tabIcons:{}};ensureProfiles();persist();applyBackground();drawNavIcons();go('home')}
+const canvas=$('drawCanvas'),ctx=canvas.getContext('2d');let painting=false,lastPt=null;
+ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);
+function canvasPoint(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*canvas.width/r.width,y:(e.clientY-r.top)*canvas.height/r.height}}
+canvas.addEventListener('pointerdown',e=>{painting=true;lastPt=canvasPoint(e);canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointermove',e=>{if(!painting)return;const p=canvasPoint(e);ctx.strokeStyle=$('penColor').value;ctx.lineWidth=Number($('penSize').value);ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(lastPt.x,lastPt.y);ctx.lineTo(p.x,p.y);ctx.stroke();lastPt=p});
+canvas.addEventListener('pointerup',()=>{painting=false;lastPt=null});canvas.addEventListener('pointercancel',()=>{painting=false;lastPt=null});
+function clearCanvas(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height)}
+function saveCanvasImage(){const data=canvas.toDataURL('image/jpeg',.85);meta.design.background=data;setImg($('previewBg'),data);persist();applyBackground();alert('描いた絵を背景画像として保存しました。必要ならバックアップも作ってね。')}
+initStorage();
+</script>
+</body>
+</html>
